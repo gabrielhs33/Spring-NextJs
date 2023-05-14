@@ -11,6 +11,7 @@ const Home: React.FC = () => {
         <title>Sales App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      
       <Layout/>
     </div>  
   )
