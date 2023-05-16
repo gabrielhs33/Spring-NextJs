@@ -20,8 +20,8 @@ public class Product implements Serializable {
 
     public Product(){}
 
-    public Product(Long id, String name, String description, BigDecimal price, String sku) {
-        this.id = id;
+    public Product(String name, String description, BigDecimal price, String sku) {
+
         this.name = name;
         this.description = description;
         this.price = price;
