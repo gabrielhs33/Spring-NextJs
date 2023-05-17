@@ -1,4 +1,4 @@
-package com.gabrielhs33.salesapi.entities;
+package com.gabrielhs33.salesapi.models;
 
 import jakarta.persistence.*;
 
