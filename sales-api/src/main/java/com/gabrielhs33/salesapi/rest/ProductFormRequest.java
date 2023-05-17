@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class ProductFormRequest {
 
     private String description;
-    private String Nome;
+    private String name;
     private BigDecimal price;
     private String sku;
 
@@ -13,8 +13,8 @@ public class ProductFormRequest {
         return description;
     }
 
-    public String getNome() {
-        return Nome;
+    public String getName() {
+        return name;
     }
 
     public BigDecimal getPrice() {
@@ -29,8 +29,8 @@ public class ProductFormRequest {
         this.description = description;
     }
 
-    public void setNome(String nome) {
-        Nome = nome;
+    public void setNome(String name) {
+        this.name = name;
     }
 
     public void setPrice(BigDecimal price) {
@@ -39,5 +39,15 @@ public class ProductFormRequest {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductFormRequest{" +
+                "description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", sku='" + sku + '\'' +
+                '}';
     }
 }
