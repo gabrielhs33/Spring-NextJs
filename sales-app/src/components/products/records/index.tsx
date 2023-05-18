@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Layout, Input }  from 'components'
 import { useProductService } from "app/services"
 import { Product } from "app/models/products"
+import { convertToBigDecimal } from 'app/util/money'
 
 export const RegisterProducts: React.FC = () =>{
 
@@ -20,7 +21,7 @@ export const RegisterProducts: React.FC = () =>{
 
             id,
             sku,
-            price: parseFloat(price),
+            price: convertToBigDecimal(price),
             name,
             description
         }
@@ -75,12 +76,14 @@ export const RegisterProducts: React.FC = () =>{
                         placeholder='Enter product SKU'
                 />
 
-                <Input label='Price: '
+                <Input label='Price: *'
                         columnClass='is-half'
                         onChange={setPrice}
                         value = {price}
                         id='inputPrice'
                         placeholder='Enter product Price'
+                        currency
+                        maxLength={16}
                 />
                 </div>
 
