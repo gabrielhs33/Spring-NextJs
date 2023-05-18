@@ -18,17 +18,26 @@ export const RegisterProducts: React.FC = () =>{
 
         const product:Product = {
 
+            id,
             sku,
             price: parseFloat(price),
             name,
             description
         }
-        service.save(product).then(productResponse => {
 
-            setId(productResponse.id!)  
-            setRegisterDate(productResponse.registerDate!)
-             
-        })
+        if(id){
+
+            service.update(product)
+            .then(response => console.log("updated!!"))
+        }else{
+
+            service.save(product).then(productResponse => {
+    
+                setId(productResponse.id!)  
+                setRegisterDate(productResponse.registerDate!)
+                 
+            })
+        }
     }
 
     return(
