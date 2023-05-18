@@ -1,3 +1,4 @@
+
 interface MessageProps{
 
     type: string;
@@ -5,6 +6,13 @@ interface MessageProps{
     text: string;
 }
 
+export interface Alert{
+
+
+    type: string;
+    field?: string;
+    text: string;
+}
 
 export const Message:React.FC<MessageProps> = ({
 
