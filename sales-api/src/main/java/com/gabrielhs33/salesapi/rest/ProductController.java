@@ -16,11 +16,8 @@ public class ProductController {
     @PostMapping
      public ProductFormRequest save( @RequestBody ProductFormRequest product ){
 
-        Product p1 = new Product(product.getName(), product.getDescription(),
-                product.getPrice(), product.getSku());
-
+        Product p1 = product.toModel();
         repository.save(p1);
-        System.out.println(product);
-        return product;
+        return ProductFormRequest.fromModel(p1);
      }
 }

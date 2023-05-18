@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -17,11 +18,29 @@ public class Product implements Serializable {
     private String description;
     private BigDecimal price;
     private String sku;
+    @Column(name = "register_date")
+    private LocalDate registerDate;
 
     public Product(){}
 
     public Product(String name, String description, BigDecimal price, String sku) {
 
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.sku = sku;
+
+    }
+
+    @PrePersist
+    public void prePersist(){
+
+        setRegisterDate(LocalDate.now());
+    }
+
+    public Product(Long id, String name, String description, BigDecimal price, String sku) {
+
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -66,6 +85,14 @@ public class Product implements Serializable {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public LocalDate getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(LocalDate registerDate) {
+        this.registerDate = registerDate;
     }
 
     @Override
