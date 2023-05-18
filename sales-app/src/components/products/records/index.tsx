@@ -100,13 +100,16 @@ export const RegisterProducts: React.FC = () =>{
                 </div>
 
                 <div className="field is-grouped">
-                <div className="control">
-                    <button onClick={submit} className="button is-link">Submit</button>
+                    <div className="control">
+                        <button onClick={submit} className="button is-link">
+
+                            { id ? "Update" : "Submit" }
+                        </button>
+                    </div>
+                    <div className="control">
+                        <button className="button is-link is-light">Turn Back</button>
+                    </div>
                 </div>
-                <div className="control">
-                    <button className="button is-link is-light">Turn Back</button>
-                </div>
-            </div>
         </Layout>
     )
 }
