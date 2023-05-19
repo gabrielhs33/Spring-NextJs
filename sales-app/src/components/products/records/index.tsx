@@ -4,6 +4,16 @@ import { useProductService } from "app/services"
 import { Product } from "app/models/products"
 import { convertToBigDecimal } from 'app/util/money'
 import { Alert } from 'components/common/message'
+import * as yup from 'yup'
+import { error } from 'console'
+
+const valiationSchema = yup.object().shape({
+
+    sku: yup.string().required(),
+    name: yup.string().required(),
+    description: yup.string().required(),
+    price: yup.number().required(),
+})
 
 export const RegisterProducts: React.FC = () =>{
 
@@ -28,31 +38,42 @@ export const RegisterProducts: React.FC = () =>{
             description
         }
 
-        if(id){
+        valiationSchema.validate(product).then(obj =>{
 
-            service.update(product)
-            .then(response => {
 
-                setMessages([{
-                    type: "success",
-                    text:"Success to Update Product!",
-
-                }])
-            })
-        }else{
-
-            service.save(product).then(productResponse => {
+            if(id){
     
-                setId(productResponse.id!)  
-                setRegisterDate(productResponse.registerDate!)
-                setMessages([{
-                    type: "success",
-                    text:"Success to Save Product!",
+                service.update(product)
+                .then(response => {
+    
+                    setMessages([{
+                        type: "success",
+                        text:"Success to Update Product!",
+    
+                    }])
+                })
+            }else{
+    
+                service.save(product).then(productResponse => {
+        
+                    setId(productResponse.id!)  
+                    setRegisterDate(productResponse.registerDate!)
+                    setMessages([{
+                        type: "success",
+                        text:"Success to Save Product!",
+    
+                    }])                    
+                })
+            }
+        }).catch(error => {
 
-                }])
-                 
-            })
-        }
+            const field = error.path;
+            const message = error.message;
+
+            setMessages([
+                {type:"danger", field, text:message}
+            ])
+        })
     }
 
     return(

@@ -5,7 +5,7 @@ import{ Alert }  from  'components/common/message'
 
 interface LayoutProps{
 
-    title?:string;
+    title?: string;
     children?: ReactNode;
     messages?: Array<Alert>;
 }
@@ -29,7 +29,7 @@ export const Layout: React.FC<LayoutProps> = (props:LayoutProps) =>{
                                 <div className="content">
                                     {
                                         props.messages &&
-                                        props.messages.map( msg => <Message {...msg}/>)
+                                        props.messages.map( msg => <Message key={ msg.text } {...msg}/>)
                                     }
                                     {props.children}
                                 </div>
