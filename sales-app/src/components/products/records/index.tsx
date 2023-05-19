@@ -9,10 +9,10 @@ import { error } from 'console'
 
 const valiationSchema = yup.object().shape({
 
-    sku: yup.string().required(),
-    name: yup.string().required(),
-    description: yup.string().required(),
-    price: yup.number().required(),
+    sku: yup.string().trim().required("Required field"),
+    name: yup.string().trim().required("Required field"),
+    description: yup.string().trim().required("Required field"),
+    price: yup.number().required("Required field").moreThan(0, "Price must be greater than 0,00"),
 })
 
 export const RegisterProducts: React.FC = () =>{
