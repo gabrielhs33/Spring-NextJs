@@ -19,16 +19,10 @@ public class ProductController {
     @Autowired
     private ProductRepository repository;
 
+    @GetMapping
     public List<ProductFormRequest> getList(){
 
-        return repository.findAll().stream().map(new Function<Product, ProductFormRequest>() {
-
-            @Override
-            public ProductFormRequest apply(Product t){
-
-                return ProductFormRequest.fromModel(t);
-            }
-        }).collect(Collectors.toList());
+        return repository.findAll().stream().map(ProductFormRequest::fromModel).collect(Collectors.toList());
     }
 
     @PostMapping
