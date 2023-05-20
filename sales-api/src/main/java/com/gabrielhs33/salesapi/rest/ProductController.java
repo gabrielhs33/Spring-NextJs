@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/products")
@@ -15,6 +18,18 @@ public class ProductController {
 
     @Autowired
     private ProductRepository repository;
+
+    public List<ProductFormRequest> getList(){
+
+        return repository.findAll().stream().map(new Function<Product, ProductFormRequest>() {
+
+            @Override
+            public ProductFormRequest apply(Product t){
+
+                return ProductFormRequest.fromModel(t);
+            }
+        }).collect(Collectors.toList());
+    }
 
     @PostMapping
      public ProductFormRequest save( @RequestBody ProductFormRequest product ){

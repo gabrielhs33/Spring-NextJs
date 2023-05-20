@@ -7,8 +7,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
     id: string;
     onChange?: (value: any) => void;
     label:string;
-    columnClass?: string,
-    currency?: boolean;   
+    columnClass?: string;
+    currency?: boolean;  
+    error?: string;
 }
 
 export const Input:React.FC<InputProps> = ({
@@ -17,6 +18,7 @@ export const Input:React.FC<InputProps> = ({
     columnClass,
     id,
     currency,
+    error,
     ...inputprops
 }: InputProps) => {
 
@@ -45,6 +47,10 @@ export const Input:React.FC<InputProps> = ({
                     id={id} {...inputprops}
                      onChange={ onInputChange}
                     />
+                    {
+                        error &&
+                        <p className="help is-danger">{ error }</p>
+                    }
         </div>
     </div>
     )

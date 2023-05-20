@@ -15,6 +15,14 @@ const valiationSchema = yup.object().shape({
     price: yup.number().required("Required field").moreThan(0, "Price must be greater than 0,00"),
 })
 
+interface formError{
+
+    sku?: string;
+    name?: string;
+    price?: string;
+    description?: string
+}
+
 export const RegisterProducts: React.FC = () =>{
 
     const service = useProductService()
@@ -26,6 +34,7 @@ export const RegisterProducts: React.FC = () =>{
     const [ id, setId ] = useState<string>('')
     const [ registerDate, setRegisterDate ] = useState<string>('')
     const [ messages, setMessages ] = useState<Array<Alert>>([])
+    const [ errors, setErrors] = useState<formError>({})
 
     const submit = () => {
 
@@ -40,7 +49,8 @@ export const RegisterProducts: React.FC = () =>{
 
         valiationSchema.validate(product).then(obj =>{
 
-
+            setErrors({})
+            
             if(id){
     
                 service.update(product)
@@ -70,9 +80,10 @@ export const RegisterProducts: React.FC = () =>{
             const field = error.path;
             const message = error.message;
 
-            setMessages([
-                {type:"danger", field, text:message}
-            ])
+            setErrors({
+
+                [field]: message
+            })
         })
     }
 
@@ -109,6 +120,8 @@ export const RegisterProducts: React.FC = () =>{
                         value = {sku}
                         id='inputSKu'
                         placeholder='Enter product SKU'
+                        error = { errors.sku }
+                        
                 />
 
                 <Input label='Price: *'
@@ -119,6 +132,7 @@ export const RegisterProducts: React.FC = () =>{
                         placeholder='Enter product Price'
                         currency
                         maxLength={16}
+                        error = { errors.price }
                 />
                 </div>
 
@@ -130,6 +144,7 @@ export const RegisterProducts: React.FC = () =>{
                             value = {name}
                             id='inputName'
                             placeholder='Enter product Name'
+                            error = { errors.name }
                     />
                 </div>
 
@@ -141,7 +156,11 @@ export const RegisterProducts: React.FC = () =>{
                                         id = "inputDesc" value={description}
                                         onChange={ event => setDescription(event.target.value)}
                                         placeholder='Enter product Description'
-                            />    
+                            />
+                            {
+                                errors.description &&
+                                <p className="help is-danger">{errors.description}</p>                                    
+                            }
                         </div>
                     </div>
                 </div>
